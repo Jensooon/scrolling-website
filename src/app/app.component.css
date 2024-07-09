@@ -1,23 +1,21 @@
-.wrapper {
-  background-color: #131316;
-  color: white;
-  font-family: Popins, sans-serif;
-  padding: 0;
-  margin: 0;
+.page-wrapper {
+  padding: calc(var(--unit) * 8);
 }
 
-section {
-  display: grid;
-  place-items: center;
-  align-content: center;
-  min-height: 100vh;
+.example-card {
+  max-width: 250px;
+
+  &--is-intersecting {
+    background: gray;
+  }
 }
 
-.hidden {
-  opacity: 0;
-  transition: all 1s;
+.example-header-image {
+  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+  background-size: cover;
 }
 
-.show {
-  opacity: 1;
+.mat-card-image {
+  height: 150px;
+  object-fit: scale-down;
 }

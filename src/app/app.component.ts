@@ -1,11 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  QueryList,
-  Renderer2,
-  ViewChildren,
-  AfterViewInit,
-} from '@angular/core';
+import { Component } from '@angular/core';
 import 'intersection-observer';
 import { RouterOutlet } from '@angular/router';
 
@@ -16,33 +9,6 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Note the plural 'styleUrls'
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   title = 'scrolling-website';
-
-  @ViewChildren('hiddenElement') hiddenElements!: QueryList<ElementRef>;
-
-  observer: IntersectionObserver;
-
-  constructor(private renderer: Renderer2) {
-    this.observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          this.renderer.addClass(entry.target, 'visible');
-        } else {
-          this.renderer.removeClass(entry.target, 'visible');
-        }
-      });
-    });
-  }
-
-  ngAfterViewInit() {
-    this.hiddenElements.changes.subscribe((elements: QueryList<ElementRef>) => {
-      elements.forEach((element) =>
-        this.observer.observe(element.nativeElement)
-      );
-    });
-    this.hiddenElements.forEach((element) =>
-      this.observer.observe(element.nativeElement)
-    );
-  }
 }
