@@ -4,7 +4,9 @@ import {
   QueryList,
   Renderer2,
   ViewChildren,
+  AfterViewInit,
 } from '@angular/core';
+import 'intersection-observer';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -12,9 +14,9 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrls: ['./app.component.css'], // Note the plural 'styleUrls'
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   title = 'scrolling-website';
 
   @ViewChildren('hiddenElement') hiddenElements!: QueryList<ElementRef>;
@@ -33,11 +35,14 @@ export class AppComponent {
     });
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.hiddenElements.changes.subscribe((elements: QueryList<ElementRef>) => {
       elements.forEach((element) =>
         this.observer.observe(element.nativeElement)
       );
     });
+    this.hiddenElements.forEach((element) =>
+      this.observer.observe(element.nativeElement)
+    );
   }
 }
